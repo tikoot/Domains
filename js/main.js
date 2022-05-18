@@ -34,20 +34,19 @@ const domainList = [
 
 $('document').ready(function(){
     addProducts();
-    filterByCategory();
     filterByDomain();
     addToCart();
 
 
 
    function addProducts(){
-     function geltoUsd(val){
-        return Math.round(val / 3);
+     function usdtoGel(val){
+        return Math.round(val * 3);
   }
    domainList.forEach((obj) => {
    let products = `<div class="each_product" data-name="${obj.domainName}"data-extenstion = "${obj.domainExtension} "data-price=" ${obj.price} "categories="${obj.categories[0]}" categoriestwo="${obj.categories[1]}" whole-name = "${obj.domainName+obj.domainExtension}">
-   <div class="each_product_wrap"> <button class="arrow_btn">  </button> <p class="product_name">${obj.domainName + obj.domainExtension}</p> <div class="product_price"> <span class="price_one">${obj.price} ₾ </span>
-   <span class="price_two">${ geltoUsd(obj.price)}  $ </span> </div> <button class="cart_btn"> <p class="add_cart"><span>დამატება</span><img src="assets/cart.svg" alt="cart"></p> </button> </div> </div>`;
+   <div class="each_product_wrap"> <button class="arrow_btn">  </button> <p class="product_name">${obj.domainName + obj.domainExtension}</p> <div class="product_price"> <span class="price_one">${obj.price} $ </span>
+   <span class="price_two">${ usdtoGel(obj.price)}  ₾ </span> </div> <button class="cart_btn"> <p class="add_cart"><span>დამატება</span><img src="assets/cart.svg" alt="cart"></p> </button> </div> </div>`;
    $('.product_wrap').append(products);
 
    });
