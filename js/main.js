@@ -7,13 +7,13 @@ const domainList = [
     },
     {
         domainName: "example2",
-        domainExtension: ".com.ge",
+        domainExtension: ".com",
         price: 299,
-        categories: 2
+        categories: [2]
     },
     {
         domainName: "example3",
-        domainExtension: ".edu.ge",
+        domainExtension: ".edu",
         price: 299,
         categories: [3,2]
     },
@@ -25,7 +25,7 @@ const domainList = [
     },
     {
         domainName: "example5",
-        domainExtension: ".org.ge",
+        domainExtension: ".org",
         price: 299,
         categories: [1,3]
     }
@@ -34,20 +34,14 @@ const domainList = [
 
 $('document').ready(function(){
     addProducts();
-    filterByDomain();
     addToCart();
 
-
-
    function addProducts(){
-     function usdtoGel(val){
-        return Math.round(val * 3);
-  }
    domainList.forEach((obj) => {
-   let products = `<div class="each_product" data-name="${obj.domainName}"data-extenstion = "${obj.domainExtension} "data-price=" ${obj.price} "categories="${obj.categories[0]}" categoriestwo="${obj.categories[1]}" whole-name = "${obj.domainName+obj.domainExtension}">
-   <div class="each_product_wrap"> <button class="arrow_btn">  </button> <p class="product_name">${obj.domainName + obj.domainExtension}</p> <div class="product_price"> <span class="price_one">${obj.price} $ </span>
-   <span class="price_two">${ usdtoGel(obj.price)}  ₾ </span> </div> <button class="cart_btn"> <p class="add_cart"><span>დამატება</span><img src="assets/cart.svg" alt="cart"></p> </button> </div> </div>`;
-   $('.product_wrap').append(products);
+    let products = `<div class="each_product">
+            <div class="each_product_wrap"> <button class="arrow_btn">  </button> <p class="product_name">${obj.domainName + obj.domainExtension}</p> <div class="product_price"> <span class="price_one">${obj.price} $ </span>
+            <span class="price_two">${obj.price}  ₾ </span> </div> <button class="cart_btn"> <p class="add_cart"><span>დამატება</span><img src="assets/cart.svg" alt="cart"></p> </button> </div> </div>`;
+            $('.product_wrap').append(products);
 
    });
 }
@@ -73,92 +67,62 @@ function addToCart(){
   
    
 }
-
-
-
-function filterByCategory(){
-    const checkboxes = document.querySelectorAll(".each_checkbox");
-    const productContainer = document.querySelector(".product_wrap");
-    var checkboxValues = [ ]; 
- 
-    checkboxes.forEach((box) => {
-     box.checked = false;
-     box.addEventListener("change", () => filterProducts());
- });
- 
- function grabCheckboxValues() {
-     var checkboxValues = [];
-     checkboxes.forEach((checkbox) => {
-           if (checkbox.checked) checkboxValues.push(checkbox.value);
-     });
-     return checkboxValues;
- }
- 
- 
- function filterProducts() { 
-    checkboxValues = grabCheckboxValues();
-    console.log(checkboxValues);
-    let products = document.querySelectorAll('.each_product')
-      
-    for(let i = 0 ; i < products.length; i++){
-        let productId = products[i].getAttribute('categories');
-        let productIdTwo = products[i].getAttribute('categoriestwo');    
-        let result = (arr, target) => target.every((v) => arr.includes(v));
-        let resultTwo = (arr, target) => target.every((v) => arr.includes(v));
-        let isMatchTwo = resultTwo(productIdTwo, checkboxValues); 
-
-        let isMatch = result(productId, checkboxValues);
-        if (isMatch || isMatchTwo ) {
-            $(products[i]).css("display","block");
-    }else if(!isMatch || !isMatchTwo){
-        $(products[i]).css("display","none");
-        }
-    }
-} 
- } 
- 
-
-
-
-function filterByDomain(){
-    const checkboxes = document.querySelectorAll(".each_checkbox_domain");
-    const productContainer = document.querySelector(".product_wrap");
-    var checkboxValues = [ ]; 
-
-    checkboxes.forEach((box) => {
-        box.checked = false;
-        box.addEventListener("change", () => filterProducts());
-    });
+let categorie;
+$('.each_checkbox').click(function(){
+    $('.each_checkbox').prop('checked', false);
+    categorie = this;
+    $(categorie).prop('checked', true);
     
-    function grabCheckboxValues() {
-        var checkboxValues = [];
-        checkboxes.forEach((checkbox) => {
-              if (checkbox.checked) checkboxValues.push(checkbox.value);
-        });
-        return checkboxValues;
-    }
-    
-    
-    function filterProducts() {
-       checkboxValues = grabCheckboxValues();
-        console.log(checkboxValues);
-        let products = document.querySelectorAll('.each_product')
-          
-        for(let i = 0 ; i < products.length; i++){
-            let productId = products[i].getAttribute('data-extenstion');
-            let result = (arr, target) => target.every((v) => arr.includes(v));
-            let isMatch = result(productId, checkboxValues);
-            if (isMatch) {
-                $(products[i]).css("display","block");
-        }else if(!isMatch){
-            $(products[i]).css("display","none");
+    if (categorie.checked){
+        $( ".product_wrap" ).empty();
+        let products = document.querySelectorAll('.each_product');
+        let value = categorie.value;
+
+
+        domainList.forEach((obj) => {
+            if(categorie.value == obj.categories[0] || categorie.value == obj.categories[1] ){
+            let products = `<div class="each_product">
+            <div class="each_product_wrap"> <button class="arrow_btn">  </button> <p class="product_name">${obj.domainName + obj.domainExtension}</p> <div class="product_price"> <span class="price_one">${obj.price} $ </span>
+            <span class="price_two">${obj.price}  ₾ </span> </div> <button class="cart_btn"> <p class="add_cart"><span>დამატება</span><img src="assets/cart.svg" alt="cart"></p> </button> </div> </div>`;
+            $('.product_wrap').append(products);
             }
+            });
+       /*for(let i = 0 ; i < products.length; i++){
+        let prCategories = products[i].getAttribute('categories');
+        if (prCategories.indexOf(value) > -1)
+        {
+            $(products[i]).css("display","block");
+        }else{
+            $(products[i]).css("display","none");
         }
-    } 
-}
-
+        }*/
+    }
 
 });
+
+
+
+ $('.each_checkbox_domain').click(function(){
+    $('.each_checkbox_domain').prop('checked', false);
+    let domain = this;
+    $(domain).prop('checked', true);
+    
+    if (domain.checked){
+        $(".product_wrap").empty();
+        let products = document.querySelectorAll('.each_product');
+        let value = domain.value;
+
+        domainList.forEach((obj) => {
+            if(value == obj.domainExtension ){
+            let products = `<div class="each_product">
+            <div class="each_product_wrap"> <button class="arrow_btn">  </button> <p class="product_name">${obj.domainName + obj.domainExtension}</p> <div class="product_price"> <span class="price_one">${obj.price} $ </span>
+            <span class="price_two">${obj.price}  ₾ </span> </div> <button class="cart_btn"> <p class="add_cart"><span>დამატება</span><img src="assets/cart.svg" alt="cart"></p> </button> </div> </div>`;
+            $('.product_wrap').append(products);
+            }
+            });
+}
+});
+
 
 
 $('.input_name_search').keyup(function(){
@@ -174,5 +138,7 @@ $('.input_name_search').keyup(function(){
         }
       }
 
+
+});
 
 });

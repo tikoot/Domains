@@ -198,7 +198,7 @@
                             <h3 class="categorie_title">
                                 Categories
                              </h3>
-                             <div class="categories_wrap">
+                             <div class="categories_wrap" filter-group = "categories">
                                  <label class="each_categorie" for="real_estate">
                                   <input class="each_checkbox" type="checkbox"  name="checkCategorie" value="1" id="real_estate">
                                   <span class="checkmark"></span>
@@ -220,26 +220,26 @@
                             <h3 class="domain_title">
                                 Domains
                              </h3>
-                             <div class="domains_wrap">
+                             <div class="domains_wrap" filter-group = "extension">
                                     <label class="each_categorie" for="ge">
-                                       <input class="each_checkbox_domain" type="radio" name="extension" id="ge" value=".ge">
+                                       <input class="each_checkbox_domain" type="checkbox" name="extension" id="ge" value=".ge" data-filter = ".ge">
                                        <span class="checkmark"></span>
                                        <span class="each_categorie_text">.ge</span>
                                     </label>
                                     <label class="each_categorie" for="comge">
-                                       <input class="each_checkbox_domain" type="radio" name="extension" value=".com.ge" id="comge">
+                                       <input class="each_checkbox_domain" type="checkbox" name="extension" value=".com" id="comge" data-filter=".com">
                                        <span class="checkmark"></span>
-                                       <span class="each_categorie_text">.com.ge</span>
+                                       <span class="each_categorie_text">.com</span>
                                     </label>
                                     <label class="each_categorie" for="eduge">
-                                       <input class="each_checkbox_domain" type="radio" name="extension" id="eduge" value=".edu.ge">
+                                       <input class="each_checkbox_domain" type="checkbox" name="extension" id="eduge" value=".edu" data-filter=".edu.ge">
                                        <span class="checkmark"></span>
-                                       <span class="each_categorie_text">.edu.ge</span>
+                                       <span class="each_categorie_text">.edu</span>
                                     </label>
                                     <label class="each_categorie" for="orgge">
-                                       <input class="each_checkbox_domain" type="radio" name="extension" id="orgge" value=".org.ge">
+                                       <input class="each_checkbox_domain" type="checkbox" name="extension" id="orgge" value=".org" data-filter=".org.ge">
                                        <span class="checkmark"></span>
-                                       <span class="each_categorie_text">.org.ge</span>
+                                       <span class="each_categorie_text">.org</span>
                                     </label>
                              </div>
                          </div>
